@@ -24,7 +24,5 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build
-    - name: Run Locally for Specflow
-      run: dotnet run --project WebApi.Api
     - name: Test
       run: dotnet test
