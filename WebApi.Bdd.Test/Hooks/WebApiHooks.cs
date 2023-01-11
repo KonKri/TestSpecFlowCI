@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using TechTalk.SpecFlow.Infrastructure;
 
 namespace WebApi.Bdd.Test.Hooks
 {
@@ -6,6 +7,12 @@ namespace WebApi.Bdd.Test.Hooks
     public class WebApiHooks
     {
         private Process Process;
+        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
+
+        public WebApiHooks(ISpecFlowOutputHelper specFlowOutputHelper)
+        {
+            _specFlowOutputHelper = specFlowOutputHelper;
+        }
 
         [BeforeScenario]
         public void StartWebApi()
@@ -18,6 +25,10 @@ namespace WebApi.Bdd.Test.Hooks
 
             // start web api process.
             Process = Process.Start(processInfo);
+
+            Thread.Sleep(10000);
+
+            _specFlowOutputHelper.WriteLine(">>>Api is up");
         }
 
         [AfterScenario]
